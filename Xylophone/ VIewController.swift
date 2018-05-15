@@ -6,16 +6,12 @@ import UIKit;
 //audio visual foundation *works with the longer version of code*
 import AVFoundation;
 
-//Step 2 - add (,AVAudioPlayerDelegate
-class ViewController: UIViewController, AVAudioPlayerDelegate {
+class ViewController: UIViewController {
 
-    //Step 3 - create variable w/ type av audio player w/ !
+    //Step 2 - create variable w/ type av audio player w/ !
     var audioPlayer: AVAudioPlayer!;
     
-    //make global variable
-    var selectedSoundFileName : String = "";
-    
-    //create array of all the sounds (.wav not necessary)
+    //Step 3 - create array of all the sounds (.wav not necessary)
     let soundArray = ["note1", "note2", "note3", "note4", "note5", "note6", "note7"];
     
     override func viewDidLoad() {
@@ -24,15 +20,13 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
 
     @IBAction func notePressed(_ sender: UIButton) {
         //used to pick out exact note to sound play *use - 1 so you don't get out of range error*
-        selectedSoundFileName = soundArray[sender.tag - 1];
-        
-        playSound();
+        playSound(soundFileName : soundArray[sender.tag - 1]);
     }
     
-    func playSound() {
+    func playSound(soundFileName : String) {
         
         //Step 4 - create url for when sound pressed
-        let soundURL = Bundle.main.url(forResource: selectedSoundFileName, withExtension: "wav")
+        let soundURL = Bundle.main.url(forResource: soundFileName, withExtension: "wav");
         
         do {
             audioPlayer = try AVAudioPlayer(contentsOf: soundURL!)
@@ -41,7 +35,6 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
             print(error)
         }
         audioPlayer.play()
-        
         }
 }
 
